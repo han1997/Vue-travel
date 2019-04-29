@@ -1,12 +1,9 @@
 <template>
-<!-- ref="mySwiper" @someSwiperEvent="callback" -->
-  <div class="wraper">
-    <swiper :options="swiperOption" >
-      <!-- slides -->
-      <swiper-slide v-for="item of swiperList" :key="item.id">
-        <img width="100%" height="100px" :src="item.url">
+  <div class="wrapper">
+    <swiper :options="swiperOption" v-if="showSwiper">
+      <swiper-slide v-for="item of list" :key="item.id">
+        <img class="swiper-img" :src="item.imgUrl" />
       </swiper-slide>
-      <!-- Optional controls -->
       <div class="swiper-pagination"  slot="pagination"></div>
     </swiper>
   </div>
@@ -15,31 +12,34 @@
 <script>
 export default {
   name: 'HomeSwiper',
+  props: {
+    list: Array
+  },
   data () {
     return {
       swiperOption: {
         pagination: '.swiper-pagination',
         loop: true
-      },
-      swiperList: [{
-        id: '0001',
-        url: '//imgs.qunarzz.com/p/tts1/1508/f5/d39a001a272e3c.jpg_r_480x320x90_ab6add13.jpg'
-      }, {
-        id: '0002',
-        url: '//imgs.qunarzz.com/p/tts0/1807/a0/9afd8e22985e7802.jpg_r_480x320x90_adf1bbe1.jpg'
-      }]
+      }
+    }
+  },
+  computed: {
+    showSwiper () {
+      return this.list.length
     }
   }
 }
 </script>
 
 <style lang="stylus" scoped>
-  .wraper >>> .swiper-pagination-bullet-active
-    background #ffffff
-  .wraper
-  // 此设置使swiper固定大小，下面的内容不会变换位置
-    overflow hidden
-    width 100%
-    height 0
-    padding-bottom 26.7%
+  .wrapper >>> .swiper-pagination-bullet-active
+    background: #fff
+  .wrapper
+    overflow: hidden
+    width: 100%
+    height: 0
+    padding-bottom: 31.25%
+    background: #eee
+    .swiper-img
+      width: 100%
 </style>
